@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 result = manuelResultValue;
 
                 resultText.setText("Result: " + result);
-                //
+                // mcmc
             }
         }
     }
