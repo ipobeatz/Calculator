@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     int result = 0;
     public EditText manuelResultEditText;
 
+
+    
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
