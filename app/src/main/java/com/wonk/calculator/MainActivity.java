@@ -7,17 +7,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
-
-
     public EditText number1Text;
-    EditText number2Text;
     TextView resultText;
 
-    int result = 0;
+    Double result = 0.0;
     public EditText manuelResultEditText;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,37 +25,31 @@ public class MainActivity extends AppCompatActivity {
         number1Text = findViewById(R.id.number1Text);
         resultText = findViewById(R.id.resultText);
         manuelResultEditText = findViewById(R.id.manuelResultEditText);
-
-
     }
-
 
     public void sum(View view) {
         if (number1Text.getText().toString().matches(""))
             resultText.setText("Enter Number!");
+
+
         else {
-
-
             if (manuelResultEditText.getText().toString().isEmpty()) {
-                int number1 = Integer.parseInt(number1Text.getText().toString());
-
+                Double number1 = Double.parseDouble(number1Text.getText().toString());
                 result = number1 + result;
-
+                result = Double.parseDouble(new DecimalFormat("##.###").format(result));
 
                 resultText.setText("Result:" + result);
-
-
             } else {
-                int manuelResultValue = Integer.parseInt(manuelResultEditText.getText().toString());
+                Double manuelResultValue = Double.parseDouble(manuelResultEditText.getText().toString());
 
-                result = manuelResultValue;
+                result = Double.valueOf(manuelResultValue);
+
+                result = Double.parseDouble(new DecimalFormat("##.###").format(result));
 
                 resultText.setText("Result: " + result);
-
             }
         }
     }
-
 
     public void deduct(View view) {
         if (number1Text.getText().toString().matches(""))
@@ -64,16 +57,20 @@ public class MainActivity extends AppCompatActivity {
         else {
 
             if (manuelResultEditText.getText().toString().isEmpty()) {
-                int number1 = Integer.parseInt(number1Text.getText().toString());
+                Double number1 = Double.parseDouble(number1Text.getText().toString());
 
                 result = result - number1;
+
+                result = round(result, 2);
 
                 resultText.setText("Result:" + result);
 
             } else {
-                int manuelResultValue = Integer.parseInt(manuelResultEditText.getText().toString());
+                Double manuelResultValue = Double.parseDouble(manuelResultEditText.getText().toString());
 
-                result = manuelResultValue;
+                result = Double.valueOf(manuelResultValue);
+
+                result = round(result, 2);
 
                 resultText.setText("Result: " + result);
 
@@ -89,67 +86,55 @@ public class MainActivity extends AppCompatActivity {
 
         else {
             if (manuelResultEditText.getText().toString().isEmpty()) {
-                int number1 = Integer.parseInt(number1Text.getText().toString());
+                Double number1 = Double.parseDouble(number1Text.getText().toString());
 
                 result = number1 * result;
+                result = round(result, 2);
 
                 resultText.setText("Result:" + result);
 
             } else {
-                int manuelResultValue = Integer.parseInt(manuelResultEditText.getText().toString());
+                Double manuelResultValue = Double.parseDouble(manuelResultEditText.getText().toString());
 
-                result = manuelResultValue;
+                result = Double.valueOf(manuelResultValue);
+                result = round(result, 2);
 
                 resultText.setText("Result: " + result);
-                // mcmc
             }
         }
     }
 
 
     public void divide(View view) {
-
-
         if (number1Text.getText().toString().matches(""))
 
             resultText.setText("Enter Number!");
 
         else {
             if (manuelResultEditText.getText().toString().isEmpty()) {
-                int number1 = Integer.parseInt(number1Text.getText().toString());
-
-
+                Double number1 = Double.parseDouble(number1Text.getText().toString());
                 result = result / number1;
+                result = Double.parseDouble(new DecimalFormat("##.###").format(result));
 
                 resultText.setText("Result: " + result);
 
             } else {
-                int manuelResultValue = Integer.parseInt(manuelResultEditText.getText().toString());
+                Double manuelResultValue = Double.parseDouble(manuelResultEditText.getText().toString());
 
-                result = manuelResultValue;
-
+                result = Double.valueOf(manuelResultValue);
+                result = Double.parseDouble(new DecimalFormat("##.###").format(result));
                 resultText.setText("Result: " + result);
             }
 
         }
     }
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
-
-    public void result1(View view) {
-
-        if (manuelResultEditText.getText().toString().matches(""))
-
-            resultText.setText("Enter Number!");
-
-        else {
-            int manuelResultValue = Integer.parseInt(manuelResultEditText.getText().toString());
-
-            result = manuelResultValue;
-
-            resultText.setText("Result: " + result);
-
-
-        }
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }
 
